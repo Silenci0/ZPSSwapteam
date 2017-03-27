@@ -37,7 +37,7 @@ along with this plugin.  If not, see <http://www.gnu.org/licenses/>.
 
 // Get some defines up in this piece!
 // But seriously, define some common, easier to deal with stuff.
-#define VERSION "1.0"
+#define VERSION "1.1"
 #define TEAM_HUMAN 2
 #define TEAM_ZOMBIE 3
 #define TEAM_SPEC 1
@@ -268,7 +268,7 @@ public OnMapEnd()
 public OnClientDisconnect(client)
 {
     g_bCanSwap[client] = true;
-    if(RealPlayerCount() <= GetConVarInt(cvar_SwapMyTeamMinPlayers) && g_bSwapEnable == true)
+    if(RealPlayerCount() <= (GetConVarInt(cvar_SwapMyTeamMinPlayers) - 1) && g_bSwapEnable == true)
     {
         //g_bSwapDisable = true;
         g_bSwapEnable = false;
@@ -279,7 +279,7 @@ public OnClientDisconnect(client)
 // Get the current player count and enable functionality if we reach the correct amount of users
 public OnClientConnected(client)
 {
-    if(RealPlayerCount() >= GetConVarInt(cvar_SwapMyTeamMaxPlayers) && g_bSwapEnable == false)
+    if(RealPlayerCount() >= (GetConVarInt(cvar_SwapMyTeamMaxPlayers) - 1) && g_bSwapEnable == false)
     {
         //g_bSwapDisable = false;
         g_bSwapEnable = true;
