@@ -355,7 +355,7 @@ stock bool:IsAdmin(client)
 // We need to change them to spectator, then change their actual team.
 stock ChangeClientTeamZPS(client, team)
 {
-    ChangeClientTeam(client, 1);
+    ChangeClientTeam(client, TEAM_SPEC);
     ChangeClientTeam(client, team);
 }
 
