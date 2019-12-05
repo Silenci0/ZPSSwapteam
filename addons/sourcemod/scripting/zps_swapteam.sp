@@ -37,7 +37,7 @@ along with this plugin.  If not, see <http://www.gnu.org/licenses/>.
 
 // Get some defines up in this piece!
 // But seriously, define some common, easier to deal with stuff.
-#define VERSION "1.1"
+#define VERSION "1.2"
 #define TEAM_HUMAN 2
 #define TEAM_ZOMBIE 3
 #define TEAM_SPEC 1
@@ -80,18 +80,18 @@ public Plugin:myinfo =
 public OnPluginStart()
 {
 	// Create our variables for use in the plugin.
-    cvar_SwapMyTeamDFlag     	= CreateConVar("sm_swapmyteam_flag", "s", "Flag necessary for admins/donators to use this functionality (use only one flag!).", FCVAR_PLUGIN);
-    cvar_SwapMyTeamCMD			= CreateConVar("sm_swapmyteam_cmd", "swapmyteam", "Command used on the server for players/admins to swap teams.", FCVAR_PLUGIN);
-    cvar_SwapMyTeamCoolDown		= CreateConVar("sm_swapmyteam_cooldown", "300.0", "Count down timer (in seconds) before the swapteam is disabled for the rest of the round.", FCVAR_PLUGIN, true, 0.0, false);
-    cvar_SwapMyTeamMaxPlayers	= CreateConVar("sm_swapmyteam_max_players", "4", "The number of players that need to be on the server to enable this ability.", FCVAR_PLUGIN, true, 0.0, false);
-    cvar_SwapMyTeamMinPlayers	= CreateConVar("sm_swapmyteam_min_players", "2", "The number of players on the server in which this ability is disabled.", FCVAR_PLUGIN, true, 0.0, false);
-    cvar_SMTVersion				= CreateConVar("sm_swapmyteam_version", VERSION, "[ZPS] Swap My Team Version.", FCVAR_PLUGIN|FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY|FCVAR_DONTRECORD);
+    cvar_SwapMyTeamDFlag     	= CreateConVar("sm_swapmyteam_flag", "s", "Flag necessary for admins/donators to use this functionality (use only one flag!).", FCVAR_NOTIFY|FCVAR_REPLICATED);
+    cvar_SwapMyTeamCMD			= CreateConVar("sm_swapmyteam_cmd", "swapmyteam", "Command used on the server for players/admins to swap teams.", FCVAR_NOTIFY|FCVAR_REPLICATED);
+    cvar_SwapMyTeamCoolDown		= CreateConVar("sm_swapmyteam_cooldown", "300.0", "Count down timer (in seconds) before the swapteam is disabled for the rest of the round.", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, false);
+    cvar_SwapMyTeamMaxPlayers	= CreateConVar("sm_swapmyteam_max_players", "4", "The number of players that need to be on the server to enable this ability.", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, false);
+    cvar_SwapMyTeamMinPlayers	= CreateConVar("sm_swapmyteam_min_players", "2", "The number of players on the server in which this ability is disabled.", FCVAR_NOTIFY|FCVAR_REPLICATED, true, 0.0, false);
+    cvar_SMTVersion				= CreateConVar("sm_swapmyteam_version", VERSION, "[ZPS] Swap My Team Version.", FCVAR_SPONLY|FCVAR_REPLICATED|FCVAR_NOTIFY|FCVAR_DONTRECORD);
 	
 	// Create a config file for the plugin
-    AutoExecConfig(true, "plugin.swapmyteam");	
+    AutoExecConfig(true, "plugin.zpsswapteam");	
     
     // Hook round start time
-    HookEvent("game_round_restart", ZPSRoundStart, EventHookMode_PostNoCopy);
+    HookEvent("round_win", ZPSRoundStart, EventHookMode_PostNoCopy);
 }
 
 ///////////////////////////////////
